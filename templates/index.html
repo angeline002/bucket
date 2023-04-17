@@ -110,13 +110,14 @@
         <li>
             <h2>✅ ${bucket}</h2>
             <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">done!</button>
-            <button onclick="delete_bucket(${num})" type="button" class="btn btn-outline-primary">delete!</button>
+            <button onclick="hapus_bucket(${num})" type="button" class="btn btn-outline-primary">delete!</button>
         </li>
                             `;
                         } else {
                             temp_html = `
          <li>
             <h2 class="done">✅ ${bucket}</h2>
+            <button onclick="hapus_bucket(${num})" type="button" class="btn btn-outline-primary">delete</button>
         </li>
                             `; 
                         }
@@ -147,6 +148,17 @@
                     window.location.reload();
                 }
             });
+        }
+        function hapus_bucket(num){
+            $.ajax({
+                type: "POST",
+                url: "/bucket/delete",
+                data: {'delete_num':num},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
         }
     </script>
 </head>

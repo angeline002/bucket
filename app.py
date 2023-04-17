@@ -39,5 +39,11 @@ def bucket_get():
     buckets_list = list(db.bucket.find({},{'_id':False}))
     return jsonify({'buckets':buckets_list})
 
+@app.route("/bucket/delete", methods=["POST"])
+def delete():
+    num_delete = request.form["delete_num"]
+    db.bucket.delete_one({'num': int(num_delete)})
+    return jsonify({'msg': 'deleted!'})
+
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
